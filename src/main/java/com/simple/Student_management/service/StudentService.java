@@ -30,31 +30,34 @@ public class StudentService {
 	            ));
 	}
 	
-	public Student saveStudent(Student student) {		// to save all students
+	public Student saveStudent(Student student) {		// to save student data
 		return studentRepository.save(student);
 	}
 	
 	public Student updateStudent(Long id, Student newStudent) {		// to edit or update the data of the student
-		Student existing = studentRepository.findById(id).orElse(null);
+		Student existing = studentRepository
+				.findById(id)
+				.orElseThrow(() -> new StudentNotFoundException("Student not found"));
 		
-		if(existing != null) {
 			existing.setName(newStudent.getName());
 			existing.setEmail(newStudent.getEmail());
 			existing.setCourse(newStudent.getCourse());
 			
 			return studentRepository.save(existing);
-		}
-		return null;
 	}
 	
 	public void deleteStudent(Long id) {
+		if(!studentRepository.existsById(id)) {
+			throw new StudentNotFoundException("Student not found");
+		}
 		studentRepository.deleteById(id);
 	}
-//
-//	public long getStudentCount() {
-//		return studentRepository.count();
-//	}
-//	
+
+	public Student getByEmail(String email) {
+		return studentRepository.findByEmail(email)
+				.orElseThrow(() -> new StudentNotFoundException("Email not found"));
+	}
+	
 	
 	
 }
