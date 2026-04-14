@@ -27,7 +27,7 @@ A **Spring Boot-based RESTful application** to manage student data with full CRU
 ---
 
 ## 📂 Project Structure
-
+```
 com.simple.Student_management
 │── controller
 │── service
@@ -35,7 +35,7 @@ com.simple.Student_management
 │── entity
 │── exception
 
-
+```
 ---
 
 ## ⚙️ Setup Instructions
